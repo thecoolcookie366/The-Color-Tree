@@ -209,11 +209,11 @@ addLayer("p", {
             title: "#10b981 Path",
             description: "You better be precise for this. The layer hiding behind this color is very hard.",
             cost() {
-                let base = new Decimal(6)
+                let base = new Decimal(4)
                 let count = ["21","22","23","31","32","33","41","42","43"].filter(id => hasUpgrade("p", id)).length
                 return base.add(count)
             },
-            unlocked() { return hasUpgrade(this.layer, 13) },
+            unlocked() { return hasUpgrade("p", 21) && hasUpgrade("p", 22) && hasUpgrade("p", 23) },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             pay() {},
             style() {
@@ -226,11 +226,11 @@ addLayer("p", {
             title: "#8b5cf6 Path",
             description: "The purple is so mystical... or is it?",
             cost() {
-                let base = new Decimal(6)
+                let base = new Decimal(4)
                 let count = ["21","22","23","31","32","33","41","42","43"].filter(id => hasUpgrade("p", id)).length
                 return base.add(count)
             },
-            unlocked() { return hasUpgrade(this.layer, 13) },
+            unlocked() { return hasUpgrade("p", 21) && hasUpgrade("p", 22) && hasUpgrade("p", 23) },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             pay() {},
             style() {
@@ -243,11 +243,11 @@ addLayer("p", {
             title: "#ec4899 Path",
             description: "How do I describe this color... oh.",
             cost() {
-                let base = new Decimal(6)
+                let base = new Decimal(4)
                 let count = ["21","22","23","31","32","33","41","42","43"].filter(id => hasUpgrade("p", id)).length
                 return base.add(count)
             },
-            unlocked() { return hasUpgrade(this.layer, 13) },
+            unlocked() { return hasUpgrade("p", 21) && hasUpgrade("p", 22) && hasUpgrade("p", 23) },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             pay() {},
             style() {
@@ -260,11 +260,11 @@ addLayer("p", {
             title: "#14b8a6 Path",
             description: "This upgrade is very tasty. Wait, what?",
             cost() {
-                let base = new Decimal(60)
+                let base = new Decimal(1259)
                 let count = ["21","22","23","31","32","33","41","42","43"].filter(id => hasUpgrade("p", id)).length
                 return base.add(count)
             },
-            unlocked() { return hasUpgrade(this.layer, 13) },
+            unlocked() { return hasUpgrade("p", 31) && hasUpgrade("p", 32) && hasUpgrade("p", 33) },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             pay() {},
             style() {
@@ -277,11 +277,11 @@ addLayer("p", {
             title: "#f97316 Path",
             description: "Spoiler alert: this is orange :D",
             cost() {
-                let base = new Decimal(60)
+                let base = new Decimal(1259)
                 let count = ["21","22","23","31","32","33","41","42","43"].filter(id => hasUpgrade("p", id)).length
                 return base.add(count)
             },
-            unlocked() { return hasUpgrade(this.layer, 13) },
+            unlocked() { return hasUpgrade("p", 31) && hasUpgrade("p", 32) && hasUpgrade("p", 33) },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             pay() {},
             style() {
@@ -294,11 +294,11 @@ addLayer("p", {
             title: "#6366f1 Path",
             description: "Blurple :P",
             cost() {
-                let base = new Decimal(60)
+                let base = new Decimal(1259)
                 let count = ["21","22","23","31","32","33","41","42","43"].filter(id => hasUpgrade("p", id)).length
                 return base.add(count)
             },
-            unlocked() { return hasUpgrade(this.layer, 13) },
+            unlocked() { return hasUpgrade("p", 31) && hasUpgrade("p", 32) && hasUpgrade("p", 33) },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             pay() {},
             style() {
@@ -306,7 +306,7 @@ addLayer("p", {
                 else if (player[this.layer].points.gte(this.cost())) return { "background-color": "#ec4899", "color": "#ffffff", "border": "2px solid #ffffff", "border-radius": "8px", "box-shadow": "0px 0px 12px #ffffff" }
                 else return { "background-color": "#374151", "color": "#9ca3af", "border": "2px solid #4b5563", "border-radius": "8px" }
             }
-        }
+        },
     },
     clickables: {
         11: {
@@ -352,12 +352,6 @@ addLayer("p", {
                     "milestones"
                 ]
             },
-            "Stats": {
-                content: [
-                    ["display-text", function() { return "You've earned " + format(player[this.layer].total) + " polished points across all your playthroughs."}],
-                    "blank",
-                ]
-            }
         }
     },
     tabFormat: [
@@ -546,7 +540,89 @@ addLayer("2", {
         11: {
             title: "Simple, basic, exactly what a tmt game needs.",
             description: "Let's bring that gain up. x2 paint.",
-            cost: new Decimal(1),
+            cost: new Decimal(1e20),
+            unlocked() { return true },
+            canAfford() { return player[this.layer].points.gte(this.cost) },
+            pay() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost)
+            },
+            style() {
+                if (hasUpgrade(this.layer, this.id)) {
+                    return {
+                        "background-color": "#1e3a8a", 
+                        "color": "#94a3b8",
+                        "border": "2px solid #1e40af",
+                        "border-radius": "8px",
+                        "cursor": "default",
+                        "box-shadow": "none"
+                    }
+                }
+                else if (player[this.layer].points.gte(this.cost)) {
+                    return {
+                        "background-color": "#3b82f6",
+                        "color": "#ffffff",
+                        "border": "2px solid #93c5fd",
+                        "border-radius": "8px",
+                        "box-shadow": "0px 0px 15px #3b82f6",
+                        "cursor": "pointer"
+                    }
+                }
+                else {
+                    return {
+                        "background-color": "#27272a",
+                        "color": "#71717a",
+                        "border": "2px solid #3f3f46",
+                        "border-radius": "8px",
+                        "cursor": "not-allowed"
+                    }
+                }
+            }
+        },
+        12: {
+            title: "2 and 4! Powers of two!",
+            description: "x24 paint.",
+            cost: new Decimal(3e22),
+            unlocked() { return true },
+            canAfford() { return player[this.layer].points.gte(this.cost) },
+            pay() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost)
+            },
+            style() {
+                if (hasUpgrade(this.layer, this.id)) {
+                    return {
+                        "background-color": "#1e3a8a", 
+                        "color": "#94a3b8",
+                        "border": "2px solid #1e40af",
+                        "border-radius": "8px",
+                        "cursor": "default",
+                        "box-shadow": "none"
+                    }
+                }
+                else if (player[this.layer].points.gte(this.cost)) {
+                    return {
+                        "background-color": "#3b82f6",
+                        "color": "#ffffff",
+                        "border": "2px solid #93c5fd",
+                        "border-radius": "8px",
+                        "box-shadow": "0px 0px 15px #3b82f6",
+                        "cursor": "pointer"
+                    }
+                }
+                else {
+                    return {
+                        "background-color": "#27272a",
+                        "color": "#71717a",
+                        "border": "2px solid #3f3f46",
+                        "border-radius": "8px",
+                        "cursor": "not-allowed"
+                    }
+                }
+            }
+        },
+        13: {
+            title: "Wait, that isn't powers of 2..",
+            description: "Just go up! x246 paint. Also a bonus ^1.05 paint.",
+            cost: new Decimal(1e33),
             unlocked() { return true },
             canAfford() { return player[this.layer].points.gte(this.cost) },
             pay() {
@@ -739,15 +815,308 @@ addLayer("4", {
     startData() { return {
         unlocked: true,
         points: new Decimal(0),
+        timer: 0,
+        timerActive: false,
+        targetStart: 1.5,
+        targetEnd: 2.5,
     }},
     color: "#10b981",
-    requires: new Decimal(2),
-    resource: "fine lines",
+    requires: new Decimal(4.3e43),
+    resource: "green",
     baseResource: "paint",
     baseAmount() { return player.points },
     type: "normal",
-    exponent: 0.4,
+    exponent: 0.0111,
     row: 2,
+    canReset() { return false },
+    update(diff) {
+        if (hasUpgrade(this.layer, 14)) {
+            player[this.layer].timer = 0
+            player[this.layer].timerActive = false
+            let baseAmount = hasUpgrade(this.layer, 11) ? new Decimal(2) : new Decimal(1)
+            if (hasUpgrade(this.layer, 13)) {
+                baseAmount = baseAmount.add(player[this.layer].points.pow(2))
+            }
+            player[this.layer].points = player[this.layer].points.add(baseAmount)
+            return 
+        }
+
+        if (player[this.layer].timerActive) {
+            player[this.layer].timer += diff
+            if (hasUpgrade(this.layer, 12)) {
+                let t = player[this.layer].timer
+                let start = player[this.layer].targetStart || 1.5
+                let end = player[this.layer].targetEnd || 2.5
+                let perfectMoment = start + ((end - start) / 2)
+                if (t >= perfectMoment) {
+                    layers[this.layer].clickables[11].onClick()
+                }
+            }
+            if (player[this.layer].timer > 5) {
+                player[this.layer].timer = 0
+                player[this.layer].timerActive = false
+            }
+        }
+        if (hasUpgrade(this.layer, 12) && !player[this.layer].timerActive) {
+            layers[this.layer].clickables[11].onClick()
+        }
+    },
+    clickables: {
+        11: {
+            title: "Click me!",
+            display() {
+                if (!player[this.layer].timerActive) return "Click to start the precision microgame!"
+                
+                let t = player[this.layer].timer
+                let start = player[this.layer].targetStart || 1.5
+                let end = player[this.layer].targetEnd || 2.5
+                
+                if (t < start) return "Not yet... (" + format(t) + "s /  " + format(start) + "s)"
+                if (t >= start && t <= end) return "Yup! You're ready! (" + format(t) + "s - Click before " + format(end) + "s!)"
+                return "Too late! (" + format(t) + "s)"
+            },
+            unlocked() { return true },
+            canClick() { return true },
+            onClick() {
+                let t = player[this.layer].timer
+                let start = player[this.layer].targetStart || 1.5
+                let end = player[this.layer].targetEnd || 2.5
+                
+                if (!player[this.layer].timerActive) {
+                    let randomStart = Math.random() * 1.5 + 0.5
+                    let randomWindow = Math.random() * 0.6 + 0.6
+                    
+                    player[this.layer].targetStart = randomStart
+                    player[this.layer].targetEnd = randomStart + randomWindow
+                    player[this.layer].timer = 0
+                    player[this.layer].timerActive = true
+                } 
+                else {
+                    if (t >= start && t <= end) {
+                        let baseAmount = hasUpgrade(this.layer, 11) ? new Decimal(2) : new Decimal(1)
+                        if (hasUpgrade(this.layer, 13)) {
+                            let currentPoints = player[this.layer].points
+                            baseAmount = baseAmount.add(currentPoints.pow(2))
+                        }
+                        player[this.layer].points = player[this.layer].points.add(baseAmount)
+                    }
+                    player[this.layer].timer = 0
+                    player[this.layer].timerActive = false
+                }
+            },
+            style() {
+                let t = player[this.layer].timer
+                let start = player[this.layer].targetStart || 1.5
+                let end = player[this.layer].targetEnd || 2.5
+                
+                if (player[this.layer].timerActive && t >= start && t <= end) {
+                    return {
+                        "background-color": "#10b981",
+                        "color": "#ffffff",
+                        "border": "2px solid #ffffff",
+                        "border-radius": "8px",
+                        "box-shadow": "0px 0px 20px #10b981",
+                        "cursor": "pointer",
+                        "padding": "15px"
+                    }
+                }
+                else if (player[this.layer].timerActive) {
+                    return {
+                        "background-color": "#b45309",
+                        "color": "#ffffff",
+                        "border": "2px solid #f59e0b",
+                        "border-radius": "8px",
+                        "cursor": "pointer",
+                        "padding": "15px"
+                    }
+                }
+                else {
+                    return {
+                        "background-color": "#064e3b",
+                        "color": "#a7f3d0",
+                        "border": "2px solid #047857",
+                        "border-radius": "8px",
+                        "cursor": "pointer",
+                        "padding": "15px"
+                    }
+                }
+            }
+        }
+    },
+    upgrades: {
+        11: {
+            title: "Gotta be precise!",
+            description: "You now get 2 green per microgame completion instead of 1.",
+            cost: new Decimal(25),
+            unlocked() { return true },
+            canAfford() { return player[this.layer].points.gte(this.cost) },
+            pay() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost)
+            },
+            style() {
+                if (hasUpgrade(this.layer, this.id)) {
+                    return {
+                        "background-color": "#064e3b", 
+                        "color": "#94a3b8",
+                        "border": "2px solid #047857",
+                        "border-radius": "8px",
+                        "cursor": "default",
+                        "box-shadow": "none"
+                    }
+                }
+                else if (player[this.layer].points.gte(this.cost)) {
+                    return {
+                        "background-color": "#10b981",
+                        "color": "#ffffff",
+                        "border": "2px solid #a7f3d0",
+                        "border-radius": "8px",
+                        "box-shadow": "0px 0px 15px #10b981",
+                        "cursor": "pointer"
+                    }
+                }
+                else {
+                    return {
+                        "background-color": "#27272a",
+                        "color": "#71717a",
+                        "border": "2px solid #3f3f46",
+                        "border-radius": "8px",
+                        "cursor": "not-allowed"
+                    }
+                }
+            }
+        },
+        12: {
+            title: "The automation of all time",
+            description: "The microgame is now automatic. Enjoy!",
+            cost: new Decimal(50),
+            unlocked() { return true },
+            canAfford() { return player[this.layer].points.gte(this.cost) },
+            pay() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost)
+            },
+            style() {
+                if (hasUpgrade(this.layer, this.id)) {
+                    return {
+                        "background-color": "#064e3b", 
+                        "color": "#94a3b8",
+                        "border": "2px solid #047857",
+                        "border-radius": "8px",
+                        "cursor": "default",
+                        "box-shadow": "none"
+                    }
+                }
+                else if (player[this.layer].points.gte(this.cost)) {
+                    return {
+                        "background-color": "#10b981",
+                        "color": "#ffffff",
+                        "border": "2px solid #a7f3d0",
+                        "border-radius": "8px",
+                        "box-shadow": "0px 0px 15px #10b981",
+                        "cursor": "pointer"
+                    }
+                }
+                else {
+                    return {
+                        "background-color": "#27272a",
+                        "color": "#71717a",
+                        "border": "2px solid #3f3f46",
+                        "border-radius": "8px",
+                        "cursor": "not-allowed"
+                    }
+                }
+            }
+        },
+        13: {
+            title: "what is this peak",
+            description: "The green you gain from the microgame is equal to green^2. Woah.",
+            cost: new Decimal(75),
+            unlocked() { return true },
+            canAfford() { return player[this.layer].points.gte(this.cost) },
+            pay() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost)
+            },
+            style() {
+                if (hasUpgrade(this.layer, this.id)) {
+                    return {
+                        "background-color": "#064e3b", 
+                        "color": "#94a3b8",
+                        "border": "2px solid #047857",
+                        "border-radius": "8px",
+                        "cursor": "default",
+                        "box-shadow": "none"
+                    }
+                }
+                else if (player[this.layer].points.gte(this.cost)) {
+                    return {
+                        "background-color": "#10b981",
+                        "color": "#ffffff",
+                        "border": "2px solid #a7f3d0",
+                        "border-radius": "8px",
+                        "box-shadow": "0px 0px 15px #10b981",
+                        "cursor": "pointer"
+                    }
+                }
+                else {
+                    return {
+                        "background-color": "#27272a",
+                        "color": "#71717a",
+                        "border": "2px solid #3f3f46",
+                        "border-radius": "8px",
+                        "cursor": "not-allowed"
+                    }
+                }
+            }
+        },
+        14: {
+            title: "I forgot about this",
+            description: "The microgame is completed every tick. Also, ^1.35 paint.",
+            cost: new Decimal("1e1000000"),
+            unlocked() { return hasUpgrade(this.layer, 13) },
+            canAfford() { return player[this.layer].points.gte(this.cost) },
+            pay() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost)
+            },
+            style() {
+                if (hasUpgrade(this.layer, this.id)) {
+                    return {
+                        "background-color": "#064e3b", 
+                        "color": "#94a3b8",
+                        "border": "2px solid #047857",
+                        "border-radius": "8px",
+                        "cursor": "default",
+                        "box-shadow": "none"
+                    }
+                }
+                else if (player[this.layer].points.gte(this.cost)) {
+                    return {
+                        "background-color": "#10b981",
+                        "color": "#ffffff",
+                        "border": "2px solid #a7f3d0",
+                        "border-radius": "8px",
+                        "box-shadow": "0px 0px 15px #10b981",
+                        "cursor": "pointer"
+                    }
+                }
+                else {
+                    return {
+                        "background-color": "#27272a",
+                        "color": "#71717a",
+                        "border": "2px solid #3f3f46",
+                        "border-radius": "8px",
+                        "cursor": "not-allowed"
+                    }
+                }
+            }
+        },
+    },
+    tabFormat: [
+        "main-display",
+        "resource-display",
+        "blank",
+        "clickables", 
+        "blank",
+        "upgrades"
+    ],
     layerShown() { return hasUpgrade("p", 31) }
 })
 
@@ -760,13 +1129,84 @@ addLayer("5", {
         points: new Decimal(0),
     }},
     color: "#8b5cf6",
-    requires: new Decimal(2),
-    resource: "thick textures",
+    requires: new Decimal(1e107),
+    resource: "purple",
     baseResource: "paint",
     baseAmount() { return player.points },
     type: "normal",
     exponent: 0.4,
     row: 2,
+    buyables: {
+        11: {
+            title: "infinity!",
+            cost(x) { 
+                return new Decimal(1).times(Decimal.pow(1.02, x))
+            },
+            display() { 
+                return "Level: " + formatWhole(getBuyableAmount(this.layer, this.id)) + 
+                       "\neffect: x" + format(this.effect()) + " paint" +
+                       "\ncost: " + format(this.cost()) + " " + layers[this.layer].resource
+            },
+            canAfford() { 
+                return player[this.layer].points.gte(this.cost()) 
+            },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) { 
+                return Decimal.pow(1.01, x)
+            },
+            unlocked() { return true },
+            style() {
+                if (this.canAfford()) {
+                    return {
+                        "background-color": "#8b5cf6",
+                        "color": "#ffffff",
+                        "border": "2px solid #ddd6fe",
+                        "border-radius": "8px",
+                        "box-shadow": "0px 0px 12px #8b5cf6",
+                        "cursor": "pointer",
+                        "padding": "10px"
+                    }
+                } else {
+                    return {
+                        "background-color": "#27272a",
+                        "color": "#a78bfa",
+                        "border": "2px solid #4b5563",
+                        "border-radius": "8px",
+                        "cursor": "not-allowed",
+                        "padding": "10px"
+                    }
+                }
+            }
+        }
+    },
+    update(diff) {
+        if (!player[this.layer] || !layers[this.layer].buyables[11]) return
+        let points = player[this.layer].points
+        if (points.lt(1)) return
+        let currentAmt = getBuyableAmount(this.layer, 11)
+        let maxAffordable = points.ln().div(new Decimal(1.02).ln()).floor()
+        if (maxAffordable.gt(currentAmt)) {
+            let costOfMax = new Decimal(1).times(Decimal.pow(1.02, maxAffordable))
+            if (points.gte(costOfMax)) {
+                player[this.layer].points = player[this.layer].points.sub(costOfMax)
+                setBuyableAmount(this.layer, 11, maxAffordable.add(1))
+            }
+        }
+    },
+    tabFormat: [
+        "main-display",
+        "resource-display",
+        "blank",
+        "buyables",
+        "blank",
+        "upgrades"
+    ],
+    passiveGeneration() {
+        return passive = 1
+    },
     layerShown() { return hasUpgrade("p", 32) }
 })
 
@@ -779,13 +1219,71 @@ addLayer("6", {
         points: new Decimal(0),
     }},
     color: "#ec4899",
-    requires: new Decimal(2),
-    resource: "abstract shapes",
+    requires: new Decimal(4.3e43),
+    resource: "pink",
     baseResource: "paint",
     baseAmount() { return player.points },
     type: "normal",
-    exponent: 0.4,
+    exponent: 0.04,
     row: 2,
+    canReset() { return false },
+    challenges: {
+        11: {
+            name: "The Power of Zero",
+            challengeDescription: "^0.01 paint.",
+            goalDescription: "Reach 1.065 paint/s.",
+            canComplete() { 
+                return getPointGen().gte(1.065) 
+            },
+            unlocked() { 
+                return true 
+            },
+            rewardEffect() {
+                let paths = ["21","22","23","31","32","33","41","42","43"]
+                let count = player.p.upgrades.filter(id => paths.includes(id.toString())).length
+                return Decimal.pow(10, count)
+            },
+            rewardDisplay() { 
+                return "x" + format(this.rewardEffect()) 
+            },
+            rewardDescription: "Multiply paint based on 10^[paths].",
+            style() {
+                if (hasChallenge(this.layer, this.id)) {
+                    return {
+                        "background-color": "#4d0519",
+                        "color": "#94a3b8",
+                        "border": "2px solid #9d174d",
+                        "border-radius": "8px"
+                    }
+                }
+                else if (player.challenge === this.layer + "_" + this.id || (player.activeChallenges && player.activeChallenges.includes(this.layer + "_" + this.id))) {
+                    return {
+                        "background-color": "#ec4899",
+                        "color": "#ffffff",
+                        "border": "2px solid #ffffff",
+                        "border-radius": "8px",
+                        "box-shadow": "0px 0px 15px #ec4899"
+                    }
+                }
+                else {
+                    return {
+                        "background-color": "#27272a",
+                        "color": "#f472b6",
+                        "border": "2px solid #4b5563",
+                        "border-radius": "8px"
+                    }
+                }
+            }
+        }
+    },
+    tabFormat: [
+        "main-display",
+        "resource-display",
+        "blank",
+        "challenges", 
+        "blank",
+        "upgrades"
+    ],
     layerShown() { return hasUpgrade("p", 33) }
 })
 
@@ -798,8 +1296,8 @@ addLayer("7", {
         points: new Decimal(0),
     }},
     color: "#14b8a6",
-    requires: new Decimal(2),
-    resource: "studio rank",
+    requires: new Decimal("1e145730000"),
+    resource: "papers",
     baseResource: "paint",
     baseAmount() { return player.points },
     type: "static",
@@ -817,8 +1315,8 @@ addLayer("8", {
         points: new Decimal(0),
     }},
     color: "#f97316",
-    requires: new Decimal(2),
-    resource: "exhibition fame",
+    requires: new Decimal("1e145730000"),
+    resource: "fame",
     baseResource: "paint",
     baseAmount() { return player.points },
     type: "static",
@@ -836,8 +1334,8 @@ addLayer("9", {
         points: new Decimal(0),
     }},
     color: "#6366f1",
-    requires: new Decimal(2),
-    resource: "mastery level",
+    requires: new Decimal("1e145730000"),
+    resource: "paintbrushes",
     baseResource: "paint",
     baseAmount() { return player.points },
     type: "static",

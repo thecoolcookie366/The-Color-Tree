@@ -52,11 +52,21 @@ function getPointGen() {
 	if (hasUpgrade('3', 11)) gain = gain.add(1.618)
 	if (hasUpgrade('p', 12)) gain = gain.mul(125)
 	if (hasUpgrade('2', 11)) gain = gain.mul(2)
+	if (hasUpgrade('2', 12)) gain = gain.mul(24)
+	if (hasUpgrade('2', 13)) gain = gain.mul(246)
 	if (hasUpgrade('3', 12)) gain = gain.mul(1.618)
+	if (hasChallenge('6', 11)) gain = gain.times(challengeEffect('6', 11))
+	if (getBuyableAmount("5", 11).gt(0)) gain = gain.times(buyableEffect("5", 11))	
 	if (hasUpgrade('1', 11)) gain = gain.pow(1.01)
 	if (hasUpgrade('1', 12)) gain = gain.pow(1.1)
 	if (hasUpgrade('1', 13)) gain = gain.pow(3.33333333333)
 	if (hasUpgrade('3', 13)) gain = gain.pow(1.618)
+	if (hasUpgrade('2', 13)) gain = gain.pow(1.05)
+	if (hasUpgrade('4', 14)) gain = gain.pow(1.35)
+	if (inChallenge('6', 11)) gain = gain.pow(0.01)
+	if (gain.gt("1e999999999")) {
+        gain = new Decimal("1e999999999")
+    }
 	return gain
 }
 
@@ -70,7 +80,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("1e133600000"))
+	return player.points.gte(new Decimal("1e13360000000000"))
 }
 
 
@@ -79,7 +89,6 @@ function isEndgame() {
 
 // Style for the background, can be a function
 var backgroundStyle = {
-
 }
 
 // You can change this if you have things that can be messed up by long tick lengths
