@@ -6,7 +6,7 @@ let modInfo = {
 
 	discordName: "Cookie's Creations Server",
 	discordLink: "https://discord.gg/aUbDYX5Z3a",
-	initialStartPoints: new Decimal (0), // Used for hard resets and new players
+	initialStartPoints: new Decimal (0.01), // Used for hard resets and new players
 	offlineLimit: 296280,  // In hours
 }
 
@@ -47,7 +47,16 @@ function getPointGen() {
 	if(!canGenPoints())
 		return new Decimal(0)
 
-	let gain = new Decimal(1)
+	let gain = new Decimal(0)
+	if (hasUpgrade('p', 11)) gain = gain.add(0.0005)
+	if (hasUpgrade('3', 11)) gain = gain.add(1.618)
+	if (hasUpgrade('p', 12)) gain = gain.mul(125)
+	if (hasUpgrade('2', 11)) gain = gain.mul(2)
+	if (hasUpgrade('3', 12)) gain = gain.mul(1.618)
+	if (hasUpgrade('1', 11)) gain = gain.pow(1.01)
+	if (hasUpgrade('1', 12)) gain = gain.pow(1.1)
+	if (hasUpgrade('1', 13)) gain = gain.pow(3.33333333333)
+	if (hasUpgrade('3', 13)) gain = gain.pow(1.618)
 	return gain
 }
 
