@@ -1579,7 +1579,7 @@ addLayer("9", {
         points: new Decimal(0),
     }},
     color: "#6366f1",
-    requires: new Decimal("1e145730000"),
+    requires: new Decimal("1e1e10"),
     resource: "paintbrushes",
     baseResource: "paint",
     baseAmount() { return player.points },
