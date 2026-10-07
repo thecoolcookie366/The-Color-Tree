@@ -49,6 +49,7 @@ function getPointGen() {
 
 	let gain = new Decimal(0)
 	if (hasUpgrade('p', 11)) gain = gain.add(0.0005)
+	if (hasUpgrade('7', 11)) gain = gain.add(0.8)
 	if (hasUpgrade('3', 11)) gain = gain.add(1.618)
 	if (hasUpgrade('p', 12)) gain = gain.mul(125)
 	if (hasUpgrade('2', 11)) gain = gain.mul(2)
@@ -63,10 +64,13 @@ function getPointGen() {
 	if (hasUpgrade('3', 13)) gain = gain.pow(1.618)
 	if (hasUpgrade('2', 13)) gain = gain.pow(1.05)
 	if (hasUpgrade('4', 14)) gain = gain.pow(1.35)
+	if (hasMilestone('8', 2)) gain = gain.pow(2)
 	if (inChallenge('6', 11)) gain = gain.pow(0.01)
-	if (gain.gt("1e999999999")) {
-        gain = new Decimal("1e999999999")
-    }
+	if (!hasUpgrade("7", 12)) {
+		if (gain.gt("1e999999999")) {
+			gain = new Decimal("1e999999999")
+		}
+	}
 	return gain
 }
 
@@ -80,7 +84,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("1e13360000000000"))
+	return player.points.gte(new Decimal("1e1e1e1e1e6234"))
 }
 
 

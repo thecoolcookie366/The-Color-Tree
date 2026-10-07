@@ -260,7 +260,7 @@ addLayer("p", {
             title: "#14b8a6 Path",
             description: "This upgrade is very tasty. Wait, what?",
             cost() {
-                let base = new Decimal(1259)
+                let base = new Decimal(2508)
                 let count = ["21","22","23","31","32","33","41","42","43"].filter(id => hasUpgrade("p", id)).length
                 return base.add(count)
             },
@@ -294,7 +294,7 @@ addLayer("p", {
             title: "#6366f1 Path",
             description: "Blurple :P",
             cost() {
-                let base = new Decimal(1259)
+                let base = new Decimal(539847)
                 let count = ["21","22","23","31","32","33","41","42","43"].filter(id => hasUpgrade("p", id)).length
                 return base.add(count)
             },
@@ -376,6 +376,40 @@ addLayer("p", {
 
 })
 
+addLayer("a", {
+    symbol: "A",
+    position: 0,
+    startData() { return {
+        unlocked: true,
+        points: new Decimal(0),
+    }},
+    color: "#888888",
+    resource: "", 
+    row: "side",
+    tooltip() { // Optional, tooltip displays when the layer is locked
+        return ("Automation")
+    },
+    layerShown() { 
+        return hasMilestone("8", 0) 
+    },
+    tabFormat: [
+        ["display-text", "<h2>Toggle your automations here!</h2>"],
+        "blank",
+        ["display-text", "Auto Red"],
+        ["toggle", ["1", "autoRed"]],
+        ["display-text", "Auto Blue"],
+        ["toggle", ["2", "autoBlue"]],
+        ["display-text", "Auto Gold"],
+        ["toggle", ["3", "autoGold"]],
+        ["display-text", "Auto Green"],
+        ["toggle", ["4", "autoGreen"]],
+        ["display-text", "Auto Purple"],
+        ["toggle", ["5", "autoPurple"]],
+        ["display-text", "Auto Pink"],
+        ["toggle", ["6", "autoPink"]],
+    ]
+})
+
 addLayer("1", {
     name: "1",
     symbol: "1",
@@ -383,6 +417,7 @@ addLayer("1", {
     startData() { return {
         unlocked: true,
         points: new Decimal(0),
+        autoRed: false,
     }},
     color: "#ef4444",
     requires: new Decimal(2),
@@ -517,6 +552,25 @@ addLayer("1", {
             }
         },
     },
+    passiveGeneration() {
+        if (hasMilestone("8", 0) && player[this.layer].autoRed) {
+            return 100
+        }
+        return 0
+    },
+    autoUpgrade() {
+        return hasMilestone("8", 0) && player[this.layer].autoRed
+    },
+    tabFormat: [
+        "main-display",
+        function() { return (hasMilestone("8", 0) && player["1"].autoRed) ? "blank" : "prestige-button" },
+        "resource-display",
+        "blank",
+        ["display-text", "<h3>Auto Red</h3>"],
+        ["toggle", ["1", "autoRed"]],
+        "blank",
+        "upgrades"
+    ],
     layerShown() { return hasUpgrade("p", 21) }
 })
 
@@ -527,6 +581,7 @@ addLayer("2", {
     startData() { return {
         unlocked: true,
         points: new Decimal(0),
+        autoBlue: false,
     }},
     color: "#3b82f6",
     requires: new Decimal(2),
@@ -661,6 +716,25 @@ addLayer("2", {
             }
         },
     },
+    passiveGeneration() {
+        if (hasMilestone("8", 0) && player[this.layer].autoBlue) {
+            return 1
+        }
+        return 0
+    },
+    autoUpgrade() {
+        return hasMilestone("8", 0) && player[this.layer].autoBlue
+    },
+    tabFormat: [
+        "main-display",
+        function() { return (hasMilestone("8", 0) && player["2"].autoBlue) ? "blank" : "prestige-button" },
+        "resource-display",
+        "blank",
+        ["display-text", "<h3>Auto Blue</h3>"],
+        ["toggle", ["2", "autoBlue"]],
+        "blank",
+        "upgrades"
+    ],
     layerShown() { return hasUpgrade("p", 22) }
 })
 
@@ -671,6 +745,7 @@ addLayer("3", {
     startData() { return {
         unlocked: true,
         points: new Decimal(0),
+        autoGold: false,
     }},
     color: "#f59e0b",
     requires: new Decimal(2),
@@ -805,6 +880,25 @@ addLayer("3", {
             }
         },
     },
+    passiveGeneration() {
+        if (hasMilestone("8", 0) && player[this.layer].autoGold) {
+            return 1
+        }
+        return 0
+    },
+    autoUpgrade() {
+        return hasMilestone("8", 0) && player[this.layer].autoGold
+    },
+    tabFormat: [
+        "main-display",
+        function() { return (hasMilestone("8", 0) && player["3"].autoGold) ? "blank" : "prestige-button" },
+        "resource-display",
+        "blank",
+        ["display-text", "<h3>Auto Gold</h3>"],
+        ["toggle", ["3", "autoGold"]],
+        "blank",
+        "upgrades"
+    ],
     layerShown() { return hasUpgrade("p", 23) }
 })
 
@@ -819,6 +913,7 @@ addLayer("4", {
         timerActive: false,
         targetStart: 1.5,
         targetEnd: 2.5,
+        autoGreen: false,
     }},
     color: "#10b981",
     requires: new Decimal(4.3e43),
@@ -942,6 +1037,13 @@ addLayer("4", {
                 }
             }
         }
+    },
+    passiveGeneration() {
+        if (hasMilestone("8", 0) && player[this.layer].autoGreen) return 10
+        return 0
+    },
+    autoUpgrade() {
+        return hasMilestone("8", 0) && player[this.layer].autoGreen;
     },
     upgrades: {
         11: {
@@ -1113,6 +1215,9 @@ addLayer("4", {
         "main-display",
         "resource-display",
         "blank",
+        ["display-text", "<h3>Auto Green</h3>"],
+        ["toggle", ["4", "autoGreen"]],
+        "blank",
         "clickables", 
         "blank",
         "upgrades"
@@ -1127,6 +1232,7 @@ addLayer("5", {
     startData() { return {
         unlocked: true,
         points: new Decimal(0),
+        autoPurple: false,
     }},
     color: "#8b5cf6",
     requires: new Decimal(1e107),
@@ -1199,6 +1305,8 @@ addLayer("5", {
     tabFormat: [
         "main-display",
         "resource-display",
+        ["display-text", "<h3>Auto Purple</h3>"],
+        ["toggle", ["5", "autoPurple"]],
         "blank",
         "buyables",
         "blank",
@@ -1217,6 +1325,7 @@ addLayer("6", {
     startData() { return {
         unlocked: true,
         points: new Decimal(0),
+        autoPink: false,
     }},
     color: "#ec4899",
     requires: new Decimal(4.3e43),
@@ -1279,11 +1388,17 @@ addLayer("6", {
     tabFormat: [
         "main-display",
         "resource-display",
+        ["display-text", "<h3>Auto Pink</h3>"],
+        ["toggle", ["6", "autoPink"]],
         "blank",
         "challenges", 
         "blank",
         "upgrades"
     ],
+    passiveGeneration() {
+        if (hasMilestone("8", 0) && player[this.layer].autoPink) return 0.0001
+        return 0
+    },
     layerShown() { return hasUpgrade("p", 33) }
 })
 
@@ -1296,13 +1411,97 @@ addLayer("7", {
         points: new Decimal(0),
     }},
     color: "#14b8a6",
-    requires: new Decimal("1e145730000"),
-    resource: "papers",
+    requires: new Decimal("1e1e9"),
+    resource: "paper",
     baseResource: "paint",
     baseAmount() { return player.points },
     type: "static",
     exponent: 1.5,
     row: 3,
+    upgrades: {
+        11: {
+            title: "Simple boosts...",
+            description: "+0.8 paint/s. Why not.",
+            cost: new Decimal(1),
+            unlocked() { return true },
+            canAfford() { return player[this.layer].points.gte(this.cost) },
+            pay() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost)
+            },
+            style() {
+                if (hasUpgrade(this.layer, this.id)) {
+                    return {
+                        "background-color": "#1f2937", 
+                        "color": "#94a3b8",
+                        "border": "2px solid #374151",
+                        "border-radius": "8px",
+                        "cursor": "default",
+                        "box-shadow": "none"
+                    }
+                }
+                else if (player[this.layer].points.gte(this.cost)) {
+                    return {
+                        "background-color": "#f3f4f6", 
+                        "color": "#1f2937",
+                        "border": "2px solid #ffffff",
+                        "border-radius": "8px",
+                        "box-shadow": "0px 0px 15px #ffffff",
+                        "cursor": "pointer"
+                    }
+                }
+                else {
+                    return {
+                        "background-color": "#27272a",
+                        "color": "#71717a",
+                        "border": "2px solid #3f3f46",
+                        "border-radius": "8px",
+                        "cursor": "not-allowed"
+                    }
+                }
+            }
+        },
+        12: {
+            title: "Who let the hardcap break?",
+            description: "Hardcap is now gone.",
+            cost: new Decimal(2),
+            unlocked() { return true },
+            canAfford() { return player[this.layer].points.gte(this.cost) },
+            pay() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost)
+            },
+            style() {
+                if (hasUpgrade(this.layer, this.id)) {
+                    return {
+                        "background-color": "#1f2937", 
+                        "color": "#94a3b8",
+                        "border": "2px solid #374151",
+                        "border-radius": "8px",
+                        "cursor": "default",
+                        "box-shadow": "none"
+                    }
+                }
+                else if (player[this.layer].points.gte(this.cost)) {
+                    return {
+                        "background-color": "#f3f4f6", 
+                        "color": "#1f2937",
+                        "border": "2px solid #ffffff",
+                        "border-radius": "8px",
+                        "box-shadow": "0px 0px 15px #ffffff",
+                        "cursor": "pointer"
+                    }
+                }
+                else {
+                    return {
+                        "background-color": "#27272a",
+                        "color": "#71717a",
+                        "border": "2px solid #3f3f46",
+                        "border-radius": "8px",
+                        "cursor": "not-allowed"
+                    }
+                }
+            }
+        },
+    },
     layerShown() { return hasUpgrade("p", 41) }
 })
 
@@ -1319,9 +1518,55 @@ addLayer("8", {
     resource: "fame",
     baseResource: "paint",
     baseAmount() { return player.points },
-    type: "static",
-    exponent: 1.5,
+    type: "normal",
+    exponent: 0.0005,
     row: 3,
+    milestones: {
+        0: {
+            requirementDescription: "1 fame",
+            effectDescription: "The first 6 paths gain automation.",
+            toggles: [
+                ["1", "autoRed"],
+                ["2", "autoBlue"],
+                ["3", "autoGold"],
+                ["4", "autoGreen"],
+                ["5", "autoPurple"],
+                ["6", "autoPink"]
+            ],
+            done() { 
+                return player[this.layer].points.gte(1) 
+            }
+        },
+        1: {
+            requirementDescription: "2 fame",
+            effectDescription: "You auto-gain fame.",
+            done() { 
+                return player[this.layer].points.gte(2) 
+            }
+        },
+        2: {
+            requirementDescription: "3 fame",
+            effectDescription: "When hardcap? ^2 paint.",
+            done() { 
+                return player[this.layer].points.gte(3) 
+            }
+        }
+    },
+    tabFormat: [
+        "main-display",
+        function() { return hasMilestone("8", 1) ? "blank" : "prestige-button" },
+        "resource-display",
+        "blank",
+        "clickables",
+        "blank",
+        "milestones", 
+        "blank",
+        "upgrades"
+    ],
+    passiveGeneration() {
+        if (hasMilestone("8", 1)) return 0.05
+        return 0
+    },
     layerShown() { return hasUpgrade("p", 42) }
 })
 
