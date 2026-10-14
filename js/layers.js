@@ -942,6 +942,18 @@ addLayer("4", {
         targetEnd: 2.5,
         autoGreen: false,
     }},
+    nodeStyle() {
+        if (hasChallenge("9", 21)) {
+            return {
+                "background": "linear-gradient(135deg, #fef08a 0%, #eab308 50%, #ca8a04 100%)",
+                "color": "#451a03",
+                "border": "3px solid #facc15",
+                "box-shadow": "0px 0px 20px #eab308, inset 0px 0px 10px #fef08a",
+                "font-weight": "bold"
+            }
+        }
+        return {} 
+    },
     color: "#10b981",
     requires: new Decimal(4.3e43),
     resource: "green",
