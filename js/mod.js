@@ -87,10 +87,9 @@ function getPointGen() {
 	if (inChallenge('9', 11)) gain = gain.minus(0.99)
 	if (inChallenge('9', 12)) gain = new Decimal(-1)
 	if (inChallenge('9', 13)) gain = gain.log(10)
-	if (!hasUpgrade("7", 12)) {
-		if (gain.gt("1e999999999")) {
-			gain = new Decimal("1e999999999")
-		}
+	let paintCap = hasUpgrade("7", 12) ? new Decimal("1e1e15") : new Decimal("1e999999999");
+	if (gain.gt(paintCap)) {
+		gain = paintCap;
 	}
 	return gain
 }

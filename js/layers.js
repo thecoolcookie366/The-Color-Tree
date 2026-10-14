@@ -155,155 +155,119 @@ addLayer("p", {
             }
         },
         21: {
-            title: "#ef4444 Path",
+            title: "#ef4444",
             description: "The red looks powerful.",
-            cost() {
-                let base = new Decimal(3)
-                let count = ["21","22","23","31","32","33","41","42","43"].filter(id => hasUpgrade("p", id)).length
-                return base.add(count)
-            },
+            cost: new Decimal(4),
             unlocked() { return hasUpgrade(this.layer, 13) },
-            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            canAfford() { return player[this.layer].points.gte(this.cost) },
             pay() {},
             style() {
                 if (hasUpgrade(this.layer, this.id)) return { "background-color": "#9d174d", "color": "#94a3b8", "border": "2px solid #4c0519", "border-radius": "8px" }
-                else if (player[this.layer].points.gte(this.cost())) return { "background-color": "#ec4899", "color": "#ffffff", "border": "2px solid #ffffff", "border-radius": "8px", "box-shadow": "0px 0px 12px #ffffff" }
+                else if (player[this.layer].points.gte(this.cost)) return { "background-color": "#ec4899", "color": "#ffffff", "border": "2px solid #ffffff", "border-radius": "8px", "box-shadow": "0px 0px 12px #ffffff" }
                 else return { "background-color": "#374151", "color": "#9ca3af", "border": "2px solid #4b5563", "border-radius": "8px" }
             }
         },
         22: {
-            title: "#3b82f6 Path",
+            title: "#3b82f6",
             description: "The blue feels... cold. For no reason, really.",
-            cost() {
-                let base = new Decimal(3)
-                let count = ["21","22","23","31","32","33","41","42","43"].filter(id => hasUpgrade("p", id)).length
-                return base.add(count)
-            },
+            cost: new Decimal(5),
             unlocked() { return hasUpgrade(this.layer, 13) },
-            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            canAfford() { return player[this.layer].points.gte(this.cost) },
             pay() {},
             style() {
                 if (hasUpgrade(this.layer, this.id)) return { "background-color": "#9d174d", "color": "#94a3b8", "border": "2px solid #4c0519", "border-radius": "8px" }
-                else if (player[this.layer].points.gte(this.cost())) return { "background-color": "#ec4899", "color": "#ffffff", "border": "2px solid #ffffff", "border-radius": "8px", "box-shadow": "0px 0px 12px #ffffff" }
+                else if (player[this.layer].points.gte(this.cost)) return { "background-color": "#ec4899", "color": "#ffffff", "border": "2px solid #ffffff", "border-radius": "8px", "box-shadow": "0px 0px 12px #ffffff" }
                 else return { "background-color": "#374151", "color": "#9ca3af", "border": "2px solid #4b5563", "border-radius": "8px" }
             }
         },
         23: {
-            title: "#f59e0b Path",
+            title: "#f59e0b",
             description: "This golden color is perfect.",
-            cost() {
-                let base = new Decimal(3)
-                let count = ["21","22","23","31","32","33","41","42","43"].filter(id => hasUpgrade("p", id)).length
-                return base.add(count)
-            },
+            cost: new Decimal(3),
             unlocked() { return hasUpgrade(this.layer, 13) },
-            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            canAfford() { return player[this.layer].points.gte(this.cost) },
             pay() {},
             style() {
                 if (hasUpgrade(this.layer, this.id)) return { "background-color": "#9d174d", "color": "#94a3b8", "border": "2px solid #4c0519", "border-radius": "8px" }
-                else if (player[this.layer].points.gte(this.cost())) return { "background-color": "#ec4899", "color": "#ffffff", "border": "2px solid #ffffff", "border-radius": "8px", "box-shadow": "0px 0px 12px #ffffff" }
+                else if (player[this.layer].points.gte(this.cost)) return { "background-color": "#ec4899", "color": "#ffffff", "border": "2px solid #ffffff", "border-radius": "8px", "box-shadow": "0px 0px 12px #ffffff" }
                 else return { "background-color": "#374151", "color": "#9ca3af", "border": "2px solid #4b5563", "border-radius": "8px" }
             }
         },
         31: {
-            title: "#10b981 Path",
+            title: "#10b981",
             description: "You better be precise for this. The layer hiding behind this color is very hard.",
-            cost() {
-                let base = new Decimal(4)
-                let count = ["21","22","23","31","32","33","41","42","43"].filter(id => hasUpgrade("p", id)).length
-                return base.add(count)
-            },
+            cost: new Decimal(8),
             unlocked() { return hasUpgrade("p", 21) && hasUpgrade("p", 22) && hasUpgrade("p", 23) },
-            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            canAfford() { return player[this.layer].points.gte(this.cost) },
             pay() {},
             style() {
                 if (hasUpgrade(this.layer, this.id)) return { "background-color": "#9d174d", "color": "#94a3b8", "border": "2px solid #4c0519", "border-radius": "8px" }
-                else if (player[this.layer].points.gte(this.cost())) return { "background-color": "#ec4899", "color": "#ffffff", "border": "2px solid #ffffff", "border-radius": "8px", "box-shadow": "0px 0px 12px #ffffff" }
+                else if (player[this.layer].points.gte(this.cost)) return { "background-color": "#ec4899", "color": "#ffffff", "border": "2px solid #ffffff", "border-radius": "8px", "box-shadow": "0px 0px 12px #ffffff" }
                 else return { "background-color": "#374151", "color": "#9ca3af", "border": "2px solid #4b5563", "border-radius": "8px" }
             }
         },
         32: {
-            title: "#8b5cf6 Path",
+            title: "#8b5cf6",
             description: "The purple is so mystical... or is it?",
-            cost() {
-                let base = new Decimal(4)
-                let count = ["21","22","23","31","32","33","41","42","43"].filter(id => hasUpgrade("p", id)).length
-                return base.add(count)
-            },
+            cost: new Decimal(9),
             unlocked() { return hasUpgrade("p", 21) && hasUpgrade("p", 22) && hasUpgrade("p", 23) },
-            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            canAfford() { return player[this.layer].points.gte(this.cost) },
             pay() {},
             style() {
                 if (hasUpgrade(this.layer, this.id)) return { "background-color": "#9d174d", "color": "#94a3b8", "border": "2px solid #4c0519", "border-radius": "8px" }
-                else if (player[this.layer].points.gte(this.cost())) return { "background-color": "#ec4899", "color": "#ffffff", "border": "2px solid #ffffff", "border-radius": "8px", "box-shadow": "0px 0px 12px #ffffff" }
+                else if (player[this.layer].points.gte(this.cost)) return { "background-color": "#ec4899", "color": "#ffffff", "border": "2px solid #ffffff", "border-radius": "8px", "box-shadow": "0px 0px 12px #ffffff" }
                 else return { "background-color": "#374151", "color": "#9ca3af", "border": "2px solid #4b5563", "border-radius": "8px" }
             }
         },
         33: {
-            title: "#ec4899 Path",
+            title: "#ec4899",
             description: "How do I describe this color... oh.",
-            cost() {
-                let base = new Decimal(4)
-                let count = ["21","22","23","31","32","33","41","42","43"].filter(id => hasUpgrade("p", id)).length
-                return base.add(count)
-            },
+            cost: new Decimal(7),
             unlocked() { return hasUpgrade("p", 21) && hasUpgrade("p", 22) && hasUpgrade("p", 23) },
-            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            canAfford() { return player[this.layer].points.gte(this.cost) },
             pay() {},
             style() {
                 if (hasUpgrade(this.layer, this.id)) return { "background-color": "#9d174d", "color": "#94a3b8", "border": "2px solid #4c0519", "border-radius": "8px" }
-                else if (player[this.layer].points.gte(this.cost())) return { "background-color": "#ec4899", "color": "#ffffff", "border": "2px solid #ffffff", "border-radius": "8px", "box-shadow": "0px 0px 12px #ffffff" }
+                else if (player[this.layer].points.gte(this.cost)) return { "background-color": "#ec4899", "color": "#ffffff", "border": "2px solid #ffffff", "border-radius": "8px", "box-shadow": "0px 0px 12px #ffffff" }
                 else return { "background-color": "#374151", "color": "#9ca3af", "border": "2px solid #4b5563", "border-radius": "8px" }
             }
         },
         41: {
-            title: "#14b8a6 Path",
+            title: "#14b8a6",
             description: "This upgrade is very tasty. Wait, what?",
-            cost() {
-                let base = new Decimal(2508)
-                let count = ["21","22","23","31","32","33","41","42","43"].filter(id => hasUpgrade("p", id)).length
-                return base.add(count)
-            },
+            cost: new Decimal(2515),
             unlocked() { return hasUpgrade("p", 31) && hasUpgrade("p", 32) && hasUpgrade("p", 33) },
-            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            canAfford() { return player[this.layer].points.gte(this.cost) },
             pay() {},
             style() {
                 if (hasUpgrade(this.layer, this.id)) return { "background-color": "#9d174d", "color": "#94a3b8", "border": "2px solid #4c0519", "border-radius": "8px" }
-                else if (player[this.layer].points.gte(this.cost())) return { "background-color": "#ec4899", "color": "#ffffff", "border": "2px solid #ffffff", "border-radius": "8px", "box-shadow": "0px 0px 12px #ffffff" }
+                else if (player[this.layer].points.gte(this.cost)) return { "background-color": "#ec4899", "color": "#ffffff", "border": "2px solid #ffffff", "border-radius": "8px", "box-shadow": "0px 0px 12px #ffffff" }
                 else return { "background-color": "#374151", "color": "#9ca3af", "border": "2px solid #4b5563", "border-radius": "8px" }
             }
         },
         42: {
-            title: "#f97316 Path",
+            title: "#f97316",
             description: "Spoiler alert: this is orange :D",
-            cost() {
-                let base = new Decimal(1259)
-                let count = ["21","22","23","31","32","33","41","42","43"].filter(id => hasUpgrade("p", id)).length
-                return base.add(count)
-            },
+            cost: new Decimal(1265),
             unlocked() { return hasUpgrade("p", 31) && hasUpgrade("p", 32) && hasUpgrade("p", 33) },
-            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            canAfford() { return player[this.layer].points.gte(this.cost) },
             pay() {},
             style() {
                 if (hasUpgrade(this.layer, this.id)) return { "background-color": "#9d174d", "color": "#94a3b8", "border": "2px solid #4c0519", "border-radius": "8px" }
-                else if (player[this.layer].points.gte(this.cost())) return { "background-color": "#ec4899", "color": "#ffffff", "border": "2px solid #ffffff", "border-radius": "8px", "box-shadow": "0px 0px 12px #ffffff" }
+                else if (player[this.layer].points.gte(this.cost)) return { "background-color": "#ec4899", "color": "#ffffff", "border": "2px solid #ffffff", "border-radius": "8px", "box-shadow": "0px 0px 12px #ffffff" }
                 else return { "background-color": "#374151", "color": "#9ca3af", "border": "2px solid #4b5563", "border-radius": "8px" }
             }
         },
         43: {
-            title: "#6366f1 Path",
+            title: "#6366f1",
             description: "Blurple :P",
-            cost() {
-                let base = new Decimal(15891)
-                let count = ["21","22","23","31","32","33","41","42","43"].filter(id => hasUpgrade("p", id)).length
-                return base.add(count)
-            },
+            cost: new Decimal(349425),
             unlocked() { return hasUpgrade("p", 31) && hasUpgrade("p", 32) && hasUpgrade("p", 33) },
-            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            canAfford() { return player[this.layer].points.gte(this.cost) },
             pay() {},
             style() {
                 if (hasUpgrade(this.layer, this.id)) return { "background-color": "#9d174d", "color": "#94a3b8", "border": "2px solid #4c0519", "border-radius": "8px" }
-                else if (player[this.layer].points.gte(this.cost())) return { "background-color": "#ec4899", "color": "#ffffff", "border": "2px solid #ffffff", "border-radius": "8px", "box-shadow": "0px 0px 12px #ffffff" }
+                else if (player[this.layer].points.gte(this.cost)) return { "background-color": "#ec4899", "color": "#ffffff", "border": "2px solid #ffffff", "border-radius": "8px", "box-shadow": "0px 0px 12px #ffffff" }
                 else return { "background-color": "#374151", "color": "#9ca3af", "border": "2px solid #4b5563", "border-radius": "8px" }
             }
         },
@@ -312,7 +276,7 @@ addLayer("p", {
         11: {
             title: "Respec",
             display() { 
-                return "Resets your path choice. Just in case you accidentally selected red as your first one :)" 
+                return "Resets your layer upgrades. Why not?" 
             },
             unlocked() { return true },
             canClick() { return true },
@@ -969,7 +933,7 @@ addLayer("4", {
             player[this.layer].timerActive = false
             let baseAmount = hasUpgrade(this.layer, 11) ? new Decimal(2) : new Decimal(1)
             if (hasUpgrade(this.layer, 13)) {
-                baseAmount = baseAmount.add(player[this.layer].points.pow(2))
+                baseAmount = baseAmount.add(player[this.layer].points.pow(2).add(1))
             }
             player[this.layer].points = player[this.layer].points.add(baseAmount)
             return 
@@ -1034,7 +998,7 @@ addLayer("4", {
                         let baseAmount = hasUpgrade(this.layer, 11) ? new Decimal(2) : new Decimal(1)
                         if (hasUpgrade(this.layer, 13)) {
                             let currentPoints = player[this.layer].points
-                            baseAmount = baseAmount.add(currentPoints.pow(2))
+                            baseAmount = baseAmount.add(currentPoints.pow(2).add(1))
                         }
                         player[this.layer].points = player[this.layer].points.add(baseAmount)
                     }
@@ -1092,7 +1056,7 @@ addLayer("4", {
         11: {
             title: "Gotta be precise!",
             description: "You now get 2 green per microgame completion instead of 1.",
-            cost: new Decimal(25),
+            cost: new Decimal(2),
             unlocked() { return true },
             canAfford() { return player[this.layer].points.gte(this.cost) },
             pay() {
@@ -1133,7 +1097,7 @@ addLayer("4", {
         12: {
             title: "The automation of all time",
             description: "The microgame is now automatic. Enjoy!",
-            cost: new Decimal(50),
+            cost: new Decimal(4),
             unlocked() { return true },
             canAfford() { return player[this.layer].points.gte(this.cost) },
             pay() {
@@ -1174,7 +1138,7 @@ addLayer("4", {
         13: {
             title: "what is this peak",
             description: "The green you gain from the microgame is equal to green^2. Woah.",
-            cost: new Decimal(75),
+            cost: new Decimal(6),
             unlocked() { return true },
             canAfford() { return player[this.layer].points.gte(this.cost) },
             pay() {
