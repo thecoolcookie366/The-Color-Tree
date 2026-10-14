@@ -294,7 +294,7 @@ addLayer("p", {
             title: "#6366f1 Path",
             description: "Blurple :P",
             cost() {
-                let base = new Decimal(539847)
+                let base = new Decimal(15891)
                 let count = ["21","22","23","31","32","33","41","42","43"].filter(id => hasUpgrade("p", id)).length
                 return base.add(count)
             },
@@ -390,7 +390,7 @@ addLayer("a", {
         return ("Automation")
     },
     layerShown() { 
-        return hasMilestone("8", 0) 
+        return hasMilestone("8", 0) && !inChallenge('9', 21)
     },
     tabFormat: [
         ["display-text", "<h2>Toggle your automations here!</h2>"],
@@ -420,6 +420,18 @@ addLayer("1", {
         autoRed: false,
     }},
     color: "#ef4444",
+    nodeStyle() {
+        if (hasChallenge("9", 11)) {
+            return {
+                "background": "linear-gradient(135deg, #fef08a 0%, #eab308 50%, #ca8a04 100%)",
+                "color": "#451a03",
+                "border": "3px solid #facc15",
+                "box-shadow": "0px 0px 20px #eab308, inset 0px 0px 10px #fef08a",
+                "font-weight": "bold"
+            }
+        }
+        return {} 
+    },
     requires: new Decimal(2),
     resource: "red",
     baseResource: "paint",
@@ -472,7 +484,7 @@ addLayer("1", {
         12: {
             title: "A bit more powerful?",
             description: "^1.1 paint.",
-            cost: new Decimal(10),
+            cost: new Decimal(5),
             unlocked() { return true },
             canAfford() { return player[this.layer].points.gte(this.cost) },
             pay() {
@@ -513,7 +525,7 @@ addLayer("1", {
         13: {
             title: "Too powerful...",
             description: "^3.3333... paint.",
-            cost: new Decimal(100),
+            cost: new Decimal(25),
             unlocked() { return true },
             canAfford() { return player[this.layer].points.gte(this.cost) },
             pay() {
@@ -566,9 +578,6 @@ addLayer("1", {
         function() { return (hasMilestone("8", 0) && player["1"].autoRed) ? "blank" : "prestige-button" },
         "resource-display",
         "blank",
-        ["display-text", "<h3>Auto Red</h3>"],
-        ["toggle", ["1", "autoRed"]],
-        "blank",
         "upgrades"
     ],
     layerShown() { return hasUpgrade("p", 21) }
@@ -584,6 +593,18 @@ addLayer("2", {
         autoBlue: false,
     }},
     color: "#3b82f6",
+    nodeStyle() {
+        if (hasChallenge("9", 12)) {
+            return {
+                "background": "linear-gradient(135deg, #fef08a 0%, #eab308 50%, #ca8a04 100%)",
+                "color": "#451a03",
+                "border": "3px solid #facc15",
+                "box-shadow": "0px 0px 20px #eab308, inset 0px 0px 10px #fef08a",
+                "font-weight": "bold"
+            }
+        }
+        return {} 
+    },
     requires: new Decimal(2),
     resource: "blue",
     baseResource: "paint",
@@ -730,9 +751,6 @@ addLayer("2", {
         function() { return (hasMilestone("8", 0) && player["2"].autoBlue) ? "blank" : "prestige-button" },
         "resource-display",
         "blank",
-        ["display-text", "<h3>Auto Blue</h3>"],
-        ["toggle", ["2", "autoBlue"]],
-        "blank",
         "upgrades"
     ],
     layerShown() { return hasUpgrade("p", 22) }
@@ -748,6 +766,18 @@ addLayer("3", {
         autoGold: false,
     }},
     color: "#f59e0b",
+    nodeStyle() {
+        if (hasChallenge("9", 13)) {
+            return {
+                "background": "linear-gradient(135deg, #e0f2fe 0%, #38bdf8 50%, #0369a1 100%)",
+                "color": "#0c4a6e",
+                "border": "3px solid #bae6fd",
+                "box-shadow": "0px 0px 20px #38bdf8, inset 0px 0px 10px #ffffff",
+                "font-weight": "bold"
+            }
+        }
+        return {} 
+    },
     requires: new Decimal(2),
     resource: "gold",
     baseResource: "paint",
@@ -894,9 +924,6 @@ addLayer("3", {
         function() { return (hasMilestone("8", 0) && player["3"].autoGold) ? "blank" : "prestige-button" },
         "resource-display",
         "blank",
-        ["display-text", "<h3>Auto Gold</h3>"],
-        ["toggle", ["3", "autoGold"]],
-        "blank",
         "upgrades"
     ],
     layerShown() { return hasUpgrade("p", 23) }
@@ -947,7 +974,8 @@ addLayer("4", {
                     layers[this.layer].clickables[11].onClick()
                 }
             }
-            if (player[this.layer].timer > 5) {
+            let maxTime = inChallenge('9', 21) ? 220 : 5
+            if (player[this.layer].timer > maxTime) {
                 player[this.layer].timer = 0
                 player[this.layer].timerActive = false
             }
@@ -980,7 +1008,10 @@ addLayer("4", {
                 if (!player[this.layer].timerActive) {
                     let randomStart = Math.random() * 1.5 + 0.5
                     let randomWindow = Math.random() * 0.6 + 0.6
-                    
+                    if (inChallenge('9', 21)) {
+                        randomStart = Math.random() * 160 + 20 
+                        randomWindow = Math.random() * 15 + 5 
+                    }
                     player[this.layer].targetStart = randomStart
                     player[this.layer].targetEnd = randomStart + randomWindow
                     player[this.layer].timer = 0
@@ -1215,9 +1246,6 @@ addLayer("4", {
         "main-display",
         "resource-display",
         "blank",
-        ["display-text", "<h3>Auto Green</h3>"],
-        ["toggle", ["4", "autoGreen"]],
-        "blank",
         "clickables", 
         "blank",
         "upgrades"
@@ -1305,8 +1333,6 @@ addLayer("5", {
     tabFormat: [
         "main-display",
         "resource-display",
-        ["display-text", "<h3>Auto Purple</h3>"],
-        ["toggle", ["5", "autoPurple"]],
         "blank",
         "buyables",
         "blank",
@@ -1388,8 +1414,6 @@ addLayer("6", {
     tabFormat: [
         "main-display",
         "resource-display",
-        ["display-text", "<h3>Auto Pink</h3>"],
-        ["toggle", ["6", "autoPink"]],
         "blank",
         "challenges", 
         "blank",
@@ -1525,6 +1549,7 @@ addLayer("8", {
         0: {
             requirementDescription: "1 fame",
             effectDescription: "The first 6 paths gain automation.",
+            unlocked() {return !inChallenge('9', 21)},
             toggles: [
                 ["1", "autoRed"],
                 ["2", "autoBlue"],
@@ -1579,13 +1604,104 @@ addLayer("9", {
         points: new Decimal(0),
     }},
     color: "#6366f1",
-    requires: new Decimal("1e1e10"),
+    requires: new Decimal("2"),
     resource: "paintbrushes",
-    baseResource: "paint",
-    baseAmount() { return player.points },
+    baseResource: "paper",
+    baseAmount() { return player[7].points },
     type: "static",
     exponent: 1.5,
     row: 3,
+    upgrades: {
+        11: {
+            title: "The real fun begins.",
+            description: "Unlock Paintings.",
+            cost: new Decimal(1),
+            unlocked() { return true },
+            canAfford() { return player[this.layer].points.gte(this.cost) },
+            pay() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost)
+            },
+            style() {
+                if (hasUpgrade('9', 11)) { 
+                    return {
+                        "background-color": "#18450a", 
+                        "color": "#9fb894",
+                        "border": "2px solid #1d7f1d",
+                        "border-radius": "8px",
+                        "cursor": "default",
+                        "box-shadow": "none"
+                    }
+                }
+                else {
+                    return {
+                        "background-color": "#5c1212", 
+                        "color": "#e09494",
+                        "border": "2px solid #7f1d1d",
+                        "border-radius": "8px",
+                        "cursor": "default",
+                        "box-shadow": "none"
+                    }
+                }
+            }
+        },
+    },
+    challenges: {
+        11: {
+            name: "Painting 1",
+            challengeDescription: "^0.01 paint, then -0.99 paint.",
+            goalDescription: "Get 1 red.",
+            rewardDescription: "Red is mastered. It becomes golden, and sqrt(red) boosts paint.",
+            unlocked() { return hasUpgrade('9', 11) },
+            canComplete() { return player["1"].points.gte(1) },
+            style() {
+                if (hasChallenge(this.layer, this.id)) return { "background-color": "#450a0a", "color": "#fca5a5", "border": "2px solid #dc2626" }
+                if (player.challenge === this.layer + "_" + this.id) return { "background-color": "#dc2626", "color": "#ffffff", "border": "2px solid #ffffff", "box-shadow": "0px 0px 15px #dc2626" }
+                return { "background-color": "#27272a", "color": "#ef4444", "border": "2px solid #4b5563" }
+            }
+        },
+        12: {
+            name: "Painting 2",
+            challengeDescription: "Paint gain is always -1. You start with 60 paint.",
+            goalDescription: "Get 1,500 blue.",
+            rewardDescription: "Blue is mastered. It becomes golden, and log(blue) boosts paint.",
+            unlocked() { return hasChallenge('9', 11) },
+            canComplete() { return player["2"].points.gte(1500) },
+            onEnter() {
+                player.points = new Decimal(60)
+            },
+            style() {
+                if (hasChallenge(this.layer, this.id)) return { "background-color": "#172554", "color": "#93c5fd", "border": "2px solid #2563eb" }
+                if (player.challenge === this.layer + "_" + this.id) return { "background-color": "#2563eb", "color": "#ffffff", "border": "2px solid #ffffff", "box-shadow": "0px 0px 15px #2563eb" }
+                return { "background-color": "#27272a", "color": "#3b82f6", "border": "2px solid #4b5563" }
+            }
+        },
+        13: {
+            name: "Painting 3",
+            challengeDescription: "The debuff is hidden.",
+            goalDescription: "Get 100,000 gold.",
+            rewardDescription: "Gold is mastered. It becomes diamond, and log(log(paint)) boosts paint.",
+            unlocked() { return hasChallenge('9', 12) },
+            canComplete() { return player["3"].points.gte(1e5) },
+            style() {
+                if (hasChallenge(this.layer, this.id)) return { "background-color": "#451a03", "color": "#fef08a", "border": "2px solid #d97706" }
+                if (player.challenge === this.layer + "_" + this.id) return { "background-color": "#d97706", "color": "#ffffff", "border": "2px solid #ffffff", "box-shadow": "0px 0px 15px #d97706" }
+                return { "background-color": "#27272a", "color": "#f59e0b", "border": "2px solid #4b5563" }
+            }
+        },
+        21: {
+            name: "Painting 4",
+            challengeDescription: "The green cooldown is massively increased, and you don't have any automation.",
+            goalDescription: "Reach 10 green.",
+            rewardDescription: "Green is mastered. It becomes golden, and [boost soon].",
+            unlocked() { return hasChallenge('9', 13) },
+            canComplete() { return player["4"].points.gte(10) },
+            style() {
+                if (hasChallenge(this.layer, this.id)) return { "background-color": "#064e3b", "color": "#a7f3d0", "border": "2px solid #10b981" }
+                if (player.challenge === this.layer + "_" + this.id) return { "background-color": "#10b981", "color": "#ffffff", "border": "2px solid #ffffff", "box-shadow": "0px 0px 15px #10b981" }
+                return { "background-color": "#27272a", "color": "#10b981", "border": "2px solid #4b5563" }
+            }
+        },
+    },
     layerShown() { return hasUpgrade("p", 43) }
 })
 

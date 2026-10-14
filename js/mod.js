@@ -56,8 +56,25 @@ function getPointGen() {
 	if (hasUpgrade('2', 12)) gain = gain.mul(24)
 	if (hasUpgrade('2', 13)) gain = gain.mul(246)
 	if (hasUpgrade('3', 12)) gain = gain.mul(1.618)
-	if (hasChallenge('6', 11)) gain = gain.times(challengeEffect('6', 11))
-	if (getBuyableAmount("5", 11).gt(0)) gain = gain.times(buyableEffect("5", 11))	
+	if (hasChallenge('9', 11)) gain = gain.mul(player[1].points.sqrt().add(1))
+	if (hasChallenge('9', 12)) {
+		let bluePoints = player["2"] && player["2"].points ? new Decimal(player["2"].points) : new Decimal(0)
+		let blueLog = bluePoints.gt(1) ? new Decimal(Decimal.log10(bluePoints)) : new Decimal(0)
+		gain = gain.mul(blueLog.add(1))
+	}
+	if (hasChallenge('9', 13)) {
+		let currentPaint = player.points ? new Decimal(player.points) : new Decimal(0)
+		let paintLogLog = new Decimal(0)
+		if (currentPaint.gt(10)) {
+			let firstLog = new Decimal(Decimal.log10(currentPaint))
+			if (firstLog.gt(1)) {
+				paintLogLog = new Decimal(Decimal.log10(firstLog))
+			}
+		}
+		gain = gain.mul(paintLogLog.add(1))
+	}
+	if (hasChallenge('6', 11)) gain = gain.mul(challengeEffect('6', 11))
+	if (getBuyableAmount("5", 11).gt(0)) gain = gain.mul(buyableEffect("5", 11))	
 	if (hasUpgrade('1', 11)) gain = gain.pow(1.01)
 	if (hasUpgrade('1', 12)) gain = gain.pow(1.1)
 	if (hasUpgrade('1', 13)) gain = gain.pow(3.33333333333)
@@ -66,6 +83,10 @@ function getPointGen() {
 	if (hasUpgrade('4', 14)) gain = gain.pow(1.35)
 	if (hasMilestone('8', 2)) gain = gain.pow(2)
 	if (inChallenge('6', 11)) gain = gain.pow(0.01)
+	if (inChallenge('9', 11)) gain = gain.pow(0)
+	if (inChallenge('9', 11)) gain = gain.minus(0.99)
+	if (inChallenge('9', 12)) gain = new Decimal(-1)
+	if (inChallenge('9', 13)) gain = gain.log(10)
 	if (!hasUpgrade("7", 12)) {
 		if (gain.gt("1e999999999")) {
 			gain = new Decimal("1e999999999")
