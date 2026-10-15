@@ -85,11 +85,14 @@ function getPointGen() {
 	if (inChallenge('6', 11)) gain = gain.pow(0.01)
 	if (inChallenge('9', 11)) gain = gain.pow(0)
 	if (inChallenge('9', 11)) gain = gain.minus(0.99)
-	if (inChallenge('9', 12)) gain = new Decimal(-1)
+	if (inChallenge('9', 12)) gain = new Decimal(player.points.div(player.points.sqrt())).neg()
 	if (inChallenge('9', 13)) gain = gain.log(10)
-	let paintCap = hasUpgrade("7", 12) ? new Decimal("1e1e15") : new Decimal("1e999999999");
+	let paintCap = hasUpgrade("7", 12) ? new Decimal("1e1e15") : new Decimal("1e999999999")
 	if (gain.gt(paintCap)) {
-		gain = paintCap;
+		gain = paintCap
+	}
+	if (player.points.lt(0)) {
+		player.points = new Decimal(0)
 	}
 	return gain
 }
@@ -112,7 +115,30 @@ function isEndgame() {
 // Less important things beyond this point!
 
 // Style for the background, can be a function
-var backgroundStyle = {
+var backgroundStyle = function() {
+    if (!document.getElementById("starry-rainbow-keyframes")) {
+        let style = document.createElement("style")
+        style.id = "starry-rainbow-keyframes"
+        style.innerHTML = `
+            @keyframes starryRainbowAnimation {
+                0% { background-position: 0% 4%, 0% 0%, 0% 0% }
+                50% { background-position: 100% 97%, 20px -50px, -30px 40px }
+                100% { background-position: 0% 4%, 0% 0%, 0% 0% }
+            }
+        `
+        document.head.appendChild(style)
+    }
+    return {
+        "background": `
+            radial-gradient(3px 3px at 25px 35px, #ffffff 100%, rgba(0,0,0,0)),
+            radial-gradient(4px 4px at 60px 85px, #fef08a 100%, rgba(0,0,0,0)),
+            radial-gradient(3px 3px at 125px 20px, #ffffff 100%, rgba(0,0,0,0)),
+            radial-gradient(5px 5px at 180px 150px, #bae6fd 100%, rgba(0,0,0,0)),
+            linear-gradient(124deg, #07080f)
+        `,
+        "background-size": "200px 200px, 250px 250px, 300px 300px, 400px 400px, 1200% 1200%",
+        "animation": "starryRainbowAnimation 30s ease infinite"
+    }
 }
 
 // You can change this if you have things that can be messed up by long tick lengths

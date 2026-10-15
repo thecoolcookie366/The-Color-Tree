@@ -950,7 +950,7 @@ addLayer("4", {
                     layers[this.layer].clickables[11].onClick()
                 }
             }
-            let maxTime = inChallenge('9', 21) ? 220 : 5
+            let maxTime = inChallenge('9', 21) ? 35 : 5
             if (player[this.layer].timer > maxTime) {
                 player[this.layer].timer = 0
                 player[this.layer].timerActive = false
@@ -985,8 +985,8 @@ addLayer("4", {
                     let randomStart = Math.random() * 1.5 + 0.5
                     let randomWindow = Math.random() * 0.6 + 0.6
                     if (inChallenge('9', 21)) {
-                        randomStart = Math.random() * 160 + 20 
-                        randomWindow = Math.random() * 15 + 5 
+                        randomStart = Math.random() * 20 + 5
+                        randomWindow = Math.random() * 3 + 2
                     }
                     player[this.layer].targetStart = randomStart
                     player[this.layer].targetEnd = randomStart + randomWindow
@@ -1637,7 +1637,7 @@ addLayer("9", {
         },
         12: {
             name: "Painting 2",
-            challengeDescription: "Paint gain is always -1. You start with 60 paint.",
+            challengeDescription: "Paint gain is always -1. You start with 60 paint. Hint: Turn on automation quickly.",
             goalDescription: "Get 1,500 blue.",
             rewardDescription: "Blue is mastered. It becomes golden, and log(blue) boosts paint.",
             unlocked() { return hasChallenge('9', 11) },
