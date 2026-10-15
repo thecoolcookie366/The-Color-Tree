@@ -733,10 +733,10 @@ addLayer("3", {
     nodeStyle() {
         if (hasChallenge("9", 13)) {
             return {
-                "background": "linear-gradient(135deg, #e0f2fe 0%, #38bdf8 50%, #0369a1 100%)",
-                "color": "#0c4a6e",
-                "border": "3px solid #bae6fd",
-                "box-shadow": "0px 0px 20px #38bdf8, inset 0px 0px 10px #ffffff",
+                "background": "linear-gradient(135deg, #fef08a 0%, #eab308 50%, #ca8a04 100%)",
+                "color": "#451a03",
+                "border": "3px solid #facc15",
+                "box-shadow": "0px 0px 20px #eab308, inset 0px 0px 10px #fef08a",
                 "font-weight": "bold"
             }
         }
@@ -1246,6 +1246,18 @@ addLayer("5", {
     type: "normal",
     exponent: 0.4,
     row: 2,
+    nodeStyle() {
+        if (hasChallenge("9", 22)) {
+            return {
+                "background": "linear-gradient(135deg, #fef08a 0%, #eab308 50%, #ca8a04 100%)",
+                "color": "#451a03",
+                "border": "3px solid #facc15",
+                "box-shadow": "0px 0px 20px #eab308, inset 0px 0px 10px #fef08a",
+                "font-weight": "bold"
+            }
+        }
+        return {} 
+    },
     buyables: {
         11: {
             title: "infinity!",
@@ -1338,6 +1350,18 @@ addLayer("6", {
     exponent: 0.04,
     row: 2,
     canReset() { return false },
+    nodeStyle() {
+        if (hasChallenge("9", 23)) {
+            return {
+                "background": "linear-gradient(135deg, #fef08a 0%, #eab308 50%, #ca8a04 100%)",
+                "color": "#451a03",
+                "border": "3px solid #facc15",
+                "box-shadow": "0px 0px 20px #eab308, inset 0px 0px 10px #fef08a",
+                "font-weight": "bold"
+            }
+        }
+        return {} 
+    },
     challenges: {
         11: {
             name: "The Power of Zero",
@@ -1638,7 +1662,7 @@ addLayer("9", {
         12: {
             name: "Painting 2",
             challengeDescription: "Paint gain is always -1. You start with 60 paint. Hint: Turn on automation quickly.",
-            goalDescription: "Get 1,500 blue.",
+            goalDescription: "Get 60 blue.",
             rewardDescription: "Blue is mastered. It becomes golden, and log(blue) boosts paint.",
             unlocked() { return hasChallenge('9', 11) },
             canComplete() { return player["2"].points.gte(1500) },
