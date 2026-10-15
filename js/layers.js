@@ -385,7 +385,7 @@ addLayer("1", {
     }},
     color: "#ef4444",
     nodeStyle() {
-        if (hasChallenge("9", 11)) {
+        if (hasChallenge("9", 13)) {
             return {
                 "background": "linear-gradient(135deg, #fef08a 0%, #eab308 50%, #ca8a04 100%)",
                 "color": "#451a03",
@@ -527,6 +527,49 @@ addLayer("1", {
                 }
             }
         },
+        21: {
+            title: "That took a turn.",
+            description: "^6.666... paint.",
+            cost: new Decimal("1e1e13"),
+            unlocked() { 
+                return hasChallenge('9', 13) 
+            },
+            canAfford() { return player[this.layer].points.gte(this.cost) && hasChallenge('9', 13)},
+            pay() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost)
+            },
+            style() {
+                if (hasUpgrade(this.layer, this.id)) {
+                    return {
+                        "background-color": "#450a0a", 
+                        "color": "#94a3b8",
+                        "border": "2px solid #7f1d1d",
+                        "border-radius": "8px",
+                        "cursor": "default",
+                        "box-shadow": "none"
+                    }
+                }
+                else if (player[this.layer].points.gte(this.cost)) {
+                    return {
+                        "background-color": "#ef4444",
+                        "color": "#ffffff",
+                        "border": "2px solid #fca5a5",
+                        "border-radius": "8px",
+                        "box-shadow": "0px 0px 15px #ef4444",
+                        "cursor": "pointer"
+                    }
+                }
+                else {
+                    return {
+                        "background-color": "#27272a",
+                        "color": "#71717a",
+                        "border": "2px solid #3f3f46",
+                        "border-radius": "8px",
+                        "cursor": "not-allowed"
+                    }
+                }
+            }
+        },
     },
     passiveGeneration() {
         if (hasMilestone("8", 0) && player[this.layer].autoRed) {
@@ -558,7 +601,7 @@ addLayer("2", {
     }},
     color: "#3b82f6",
     nodeStyle() {
-        if (hasChallenge("9", 12)) {
+        if (hasChallenge("9", 13)) {
             return {
                 "background": "linear-gradient(135deg, #fef08a 0%, #eab308 50%, #ca8a04 100%)",
                 "color": "#451a03",
@@ -665,6 +708,49 @@ addLayer("2", {
             cost: new Decimal(1e33),
             unlocked() { return true },
             canAfford() { return player[this.layer].points.gte(this.cost) },
+            pay() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost)
+            },
+            style() {
+                if (hasUpgrade(this.layer, this.id)) {
+                    return {
+                        "background-color": "#1e3a8a", 
+                        "color": "#94a3b8",
+                        "border": "2px solid #1e40af",
+                        "border-radius": "8px",
+                        "cursor": "default",
+                        "box-shadow": "none"
+                    }
+                }
+                else if (player[this.layer].points.gte(this.cost)) {
+                    return {
+                        "background-color": "#3b82f6",
+                        "color": "#ffffff",
+                        "border": "2px solid #93c5fd",
+                        "border-radius": "8px",
+                        "box-shadow": "0px 0px 15px #3b82f6",
+                        "cursor": "pointer"
+                    }
+                }
+                else {
+                    return {
+                        "background-color": "#27272a",
+                        "color": "#71717a",
+                        "border": "2px solid #3f3f46",
+                        "border-radius": "8px",
+                        "cursor": "not-allowed"
+                    }
+                }
+            }
+        },
+        21: {
+            title: "That's increments of 2! Oh hey there.",
+            description: "x2,468 paint. Just kidding, the hardcap is removed<sup>2</sup>.",
+            cost: new Decimal("1e1e14"),
+            unlocked() { 
+                return hasChallenge('9', 13) 
+            },
+            canAfford() { return player[this.layer].points.gte(this.cost) && hasChallenge('9', 13)},
             pay() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost)
             },
@@ -873,6 +959,49 @@ addLayer("3", {
                 }
             }
         },
+        21: {
+            title: "Did you really expect tetration??",
+            description: "^16.18 paint.",
+            cost: new Decimal("1e1e17"),
+            unlocked() { 
+                return hasChallenge('9', 13) 
+            },
+            canAfford() { return player[this.layer].points.gte(this.cost) && hasChallenge('9', 13)},
+            pay() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost)
+            },
+            style() {
+                if (hasUpgrade(this.layer, this.id)) {
+                    return {
+                        "background-color": "#78350f", 
+                        "color": "#94a3b8",
+                        "border": "2px solid #92400e",
+                        "border-radius": "8px",
+                        "cursor": "default",
+                        "box-shadow": "none"
+                    }
+                }
+                else if (player[this.layer].points.gte(this.cost)) {
+                    return {
+                        "background-color": "#f59e0b",
+                        "color": "#ffffff",
+                        "border": "2px solid #fde68a",
+                        "border-radius": "8px",
+                        "box-shadow": "0px 0px 15px #f59e0b",
+                        "cursor": "pointer"
+                    }
+                }
+                else {
+                    return {
+                        "background-color": "#27272a",
+                        "color": "#71717a",
+                        "border": "2px solid #3f3f46",
+                        "border-radius": "8px",
+                        "cursor": "not-allowed"
+                    }
+                }
+            }
+        },
     },
     passiveGeneration() {
         if (hasMilestone("8", 0) && player[this.layer].autoGold) {
@@ -907,7 +1036,7 @@ addLayer("4", {
         autoGreen: false,
     }},
     nodeStyle() {
-        if (hasChallenge("9", 21)) {
+        if (hasChallenge("9", 23)) {
             return {
                 "background": "linear-gradient(135deg, #fef08a 0%, #eab308 50%, #ca8a04 100%)",
                 "color": "#451a03",
@@ -1247,7 +1376,7 @@ addLayer("5", {
     exponent: 0.4,
     row: 2,
     nodeStyle() {
-        if (hasChallenge("9", 22)) {
+        if (hasChallenge("9", 23)) {
             return {
                 "background": "linear-gradient(135deg, #fef08a 0%, #eab308 50%, #ca8a04 100%)",
                 "color": "#451a03",
@@ -1440,6 +1569,7 @@ addLayer("7", {
     baseResource: "paint",
     baseAmount() { return player.points },
     type: "static",
+    canBuyMax() {return hasChallenge('9',21)},
     exponent: 1.5,
     row: 3,
     upgrades: {
@@ -1650,7 +1780,7 @@ addLayer("9", {
             name: "Painting 1",
             challengeDescription: "^0.01 paint, then -0.99 paint.",
             goalDescription: "Get 1 red.",
-            rewardDescription: "Red is mastered. It becomes golden, and sqrt(red) boosts paint.",
+            rewardDescription: "sqrt(red) boosts paint.",
             unlocked() { return hasUpgrade('9', 11) },
             canComplete() { return player["1"].points.gte(1) },
             style() {
@@ -1663,7 +1793,7 @@ addLayer("9", {
             name: "Painting 2",
             challengeDescription: "Paint rapidly goes down, stopping at 1.",
             goalDescription: "Get 10 blue.",
-            rewardDescription: "Blue is mastered. It becomes golden, and log(blue) boosts paint.",
+            rewardDescription: "log(blue) boosts paint.",
             unlocked() { return hasChallenge('9', 11) },
             canComplete() { return player["2"].points.gte(10) },
             onEnter() {
@@ -1679,7 +1809,7 @@ addLayer("9", {
             name: "Painting 3",
             challengeDescription: "The debuff is hidden.",
             goalDescription: "Get 100,000 gold.",
-            rewardDescription: "Gold is mastered. It becomes diamond, and log(log(paint)) boosts paint.",
+            rewardDescription: "The first 3 colors are mastered, unlocking new upgrades and buyables. They becomes golden, and log(log(paint)) boosts paint.",
             unlocked() { return hasChallenge('9', 12) },
             canComplete() { return player["3"].points.gte(1e5) },
             style() {
@@ -1692,14 +1822,27 @@ addLayer("9", {
             name: "Painting 4",
             challengeDescription: "The green cooldown is massively increased, and you don't have any automation.",
             goalDescription: "Reach 10 green.",
-            rewardDescription: "Green is mastered. It becomes golden, and [boost soon].",
-            unlocked() { return hasChallenge('9', 13) },
+            rewardDescription: "You can buy max paper now.",
+            unlocked() { return (hasChallenge('9', 13) && player.points.gte("1e1e300")) || hasChallenge('9', 21) || inChallenge('9', 21)},
             canComplete() { return player["4"].points.gte(10) },
             style() {
                 if (hasChallenge(this.layer, this.id)) return { "background-color": "#064e3b", "color": "#a7f3d0", "border": "2px solid #10b981" }
                 if (player.challenge === this.layer + "_" + this.id) return { "background-color": "#10b981", "color": "#ffffff", "border": "2px solid #ffffff", "box-shadow": "0px 0px 15px #10b981" }
                 return { "background-color": "#27272a", "color": "#10b981", "border": "2px solid #4b5563" }
             }
+        },
+        22: {
+            name: "Painting 5",
+            challengeDescription: "Flip a coin! ...figure this out yourself :)",
+            goalDescription: "Reach Infinity purple.",
+            rewardDescription: "soon.",
+            unlocked() { return hasChallenge('9', 21) },
+            canComplete() { return player["5"].points.gte("(e^1e30)33") },
+            style() {
+                if (hasChallenge(this.layer, this.id)) return { "background-color": "#2e1065", "color": "#ddd6fe", "border": "2px solid #8b5cf6" }
+                if (player.challenge === this.layer + "_" + this.id) return { "background-color": "#8b5cf6", "color": "#ffffff", "border": "2px solid #ffffff", "box-shadow": "0px 0px 15px #8b5cf6" }
+                return { "background-color": "#27272a", "color": "#a78bfa", "border": "2px solid #4b5563" }
+            },
         },
     },
     layerShown() { return hasUpgrade("p", 43) }

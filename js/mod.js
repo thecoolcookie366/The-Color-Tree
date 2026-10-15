@@ -2,6 +2,7 @@ let modInfo = {
 	name: "The Color Tree",
 	author: "thecoolcookie366",
 	pointsName: "paint",
+	id: "A? Me Lia!",
 	modFiles: ["layers.js", "tree.js"],
 
 	discordName: "Cookie's Creations Server",
@@ -78,7 +79,9 @@ function getPointGen() {
 	if (hasUpgrade('1', 11)) gain = gain.pow(1.01)
 	if (hasUpgrade('1', 12)) gain = gain.pow(1.1)
 	if (hasUpgrade('1', 13)) gain = gain.pow(3.33333333333)
+	if (hasUpgrade('1', 21)) gain = gain.pow(6.66666666666)
 	if (hasUpgrade('3', 13)) gain = gain.pow(1.618)
+	if (hasUpgrade('3', 21)) gain = gain.pow(16.18)
 	if (hasUpgrade('2', 13)) gain = gain.pow(1.05)
 	if (hasUpgrade('4', 14)) gain = gain.pow(1.35)
 	if (hasMilestone('8', 2)) gain = gain.pow(2)
@@ -87,7 +90,13 @@ function getPointGen() {
 	if (inChallenge('9', 11)) gain = gain.minus(0.99)
 	if (inChallenge('9', 12)) gain = new Decimal(player.points.div(player.points.sqrt())).neg()
 	if (inChallenge('9', 13)) gain = gain.log(10)
-	let paintCap = hasUpgrade("7", 12) ? new Decimal("1e1e15") : new Decimal("1e999999999")
+	let paintCap = new Decimal("1e999999999")
+	if (hasUpgrade("2", 21)) {
+		paintCap = new Decimal("1e1.796e308")
+	}
+	else if (hasUpgrade("7", 12)) {
+		paintCap = new Decimal("1e1e15")
+	}
 	if (gain.gt(paintCap)) {
 		gain = paintCap
 	}
