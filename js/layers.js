@@ -1661,11 +1661,11 @@ addLayer("9", {
         },
         12: {
             name: "Painting 2",
-            challengeDescription: "Paint gain is always -1. You start with 60 paint. Hint: Turn on automation quickly.",
-            goalDescription: "Get 60 blue.",
+            challengeDescription: "Paint rapidly goes down, stopping at 1.",
+            goalDescription: "Get 10 blue.",
             rewardDescription: "Blue is mastered. It becomes golden, and log(blue) boosts paint.",
             unlocked() { return hasChallenge('9', 11) },
-            canComplete() { return player["2"].points.gte(1500) },
+            canComplete() { return player["2"].points.gte(10) },
             onEnter() {
                 player.points = new Decimal(60)
             },

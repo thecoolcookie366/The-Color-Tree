@@ -91,10 +91,8 @@ function getPointGen() {
 	if (gain.gt(paintCap)) {
 		gain = paintCap
 	}
-	if (inChallenge('9', 12)) {
-		if (player.points.lt(1)) {
-			player.points = new Decimal(1)
-		}
+	if (inChallenge('9',12) && player.points.lte(1)) {
+		gain = new Decimal(0)
 	}
 	return gain
 }
