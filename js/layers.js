@@ -272,31 +272,6 @@ addLayer("p", {
             }
         },
     },
-    clickables: {
-        11: {
-            title: "Respec",
-            display() { 
-                return "Resets your layer upgrades. Why not?" 
-            },
-            unlocked() { return true },
-            canClick() { return true },
-            onClick() {
-                let paths = [21, 22, 23, 31, 32, 33, 41, 42, 43]
-                player.p.upgrades = player.p.upgrades.filter(id => !paths.includes(id))
-                doReset('0', true)
-            },
-            style() {
-                return {
-                    "background-color": "#7f1d1d",
-                    "color": "#ffffff",
-                    "border": "2px solid #ef4444",
-                    "border-radius": "4px",
-                    "padding": "10px",
-                    "cursor": "pointer"
-                }
-            }
-        }
-    },
     microtabs: {
         stuff: { 
             "Main": {
@@ -306,8 +281,6 @@ addLayer("p", {
                     ["upgrades", ["1"]],
                     "blank",
                     ["upgrades", ["2", "3", "4"]],
-                    "blank",
-                    "clickables",
                     "blank",
                 ]
             },
@@ -1779,10 +1752,10 @@ addLayer("9", {
         11: {
             name: "Painting 1",
             challengeDescription: "^0.01 paint, then -0.99 paint.",
-            goalDescription: "Get 1 red.",
+            goalDescription: "Get 1 red or 0.2 paint.",
             rewardDescription: "sqrt(red) boosts paint.",
             unlocked() { return hasUpgrade('9', 11) },
-            canComplete() { return player["1"].points.gte(1) },
+            canComplete() { return player["1"].points.gte(1) || player.points.gte(0.2)},
             style() {
                 if (hasChallenge(this.layer, this.id)) return { "background-color": "#450a0a", "color": "#fca5a5", "border": "2px solid #dc2626" }
                 if (player.challenge === this.layer + "_" + this.id) return { "background-color": "#dc2626", "color": "#ffffff", "border": "2px solid #ffffff", "box-shadow": "0px 0px 15px #dc2626" }
