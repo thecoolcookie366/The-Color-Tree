@@ -313,40 +313,6 @@ addLayer("p", {
 
 })
 
-addLayer("a", {
-    symbol: "A",
-    position: 0,
-    startData() { return {
-        unlocked: true,
-        points: new Decimal(0),
-    }},
-    color: "#888888",
-    resource: "", 
-    row: "side",
-    tooltip() { // Optional, tooltip displays when the layer is locked
-        return ("Automation")
-    },
-    layerShown() { 
-        return hasMilestone("8", 0) && !inChallenge('9', 21)
-    },
-    tabFormat: [
-        ["display-text", "<h2>Toggle your automations here!</h2>"],
-        "blank",
-        ["display-text", "Auto Red"],
-        ["toggle", ["1", "autoRed"]],
-        ["display-text", "Auto Blue"],
-        ["toggle", ["2", "autoBlue"]],
-        ["display-text", "Auto Gold"],
-        ["toggle", ["3", "autoGold"]],
-        ["display-text", "Auto Green"],
-        ["toggle", ["4", "autoGreen"]],
-        ["display-text", "Auto Purple"],
-        ["toggle", ["5", "autoPurple"]],
-        ["display-text", "Auto Pink"],
-        ["toggle", ["6", "autoPink"]],
-    ]
-})
-
 addLayer("1", {
     name: "1",
     symbol: "1",
@@ -545,17 +511,17 @@ addLayer("1", {
         },
     },
     passiveGeneration() {
-        if (hasMilestone("8", 0) && player[this.layer].autoRed) {
+        if (hasMilestone("8", 0) && !inChallenge('9', 12) && !inChallenge('9', 21)){
             return 100
         }
         return 0
     },
     autoUpgrade() {
-        return hasMilestone("8", 0) && player[this.layer].autoRed
+        return (hasMilestone("8", 0) && !inChallenge('9', 12) && !inChallenge('9', 21))
     },
     tabFormat: [
         "main-display",
-        function() { return (hasMilestone("8", 0) && player["1"].autoRed) ? "blank" : "prestige-button" },
+        function() { return (hasMilestone("8", 0) && !inChallenge('9', 12) && !inChallenge('9', 21)) ? "blank" : "prestige-button" },
         "resource-display",
         "blank",
         "upgrades"
@@ -761,17 +727,17 @@ addLayer("2", {
         },
     },
     passiveGeneration() {
-        if (hasMilestone("8", 0) && player[this.layer].autoBlue) {
+        if (hasMilestone("8", 0) && !inChallenge('9', 12) && !inChallenge('9', 21)) {
             return 1
         }
         return 0
     },
     autoUpgrade() {
-        return hasMilestone("8", 0) && player[this.layer].autoBlue
+        return (hasMilestone("8", 0) && !inChallenge('9', 12) && !inChallenge('9', 21))
     },
     tabFormat: [
         "main-display",
-        function() { return (hasMilestone("8", 0) && player["2"].autoBlue) ? "blank" : "prestige-button" },
+        function() { return (hasMilestone("8", 0) && !inChallenge('9', 12) && !inChallenge('9', 21)) ? "blank" : "prestige-button" },
         "resource-display",
         "blank",
         "upgrades"
@@ -977,17 +943,17 @@ addLayer("3", {
         },
     },
     passiveGeneration() {
-        if (hasMilestone("8", 0) && player[this.layer].autoGold) {
+        if (hasMilestone("8", 0) && !inChallenge('9', 12) && !inChallenge('9', 21)) {
             return 1
         }
         return 0
     },
     autoUpgrade() {
-        return hasMilestone("8", 0) && player[this.layer].autoGold
+        return (hasMilestone("8", 0) && !inChallenge('9', 12) && !inChallenge('9', 21))
     },
     tabFormat: [
         "main-display",
-        function() { return (hasMilestone("8", 0) && player["3"].autoGold) ? "blank" : "prestige-button" },
+        function() { return (hasMilestone("8", 0) && !inChallenge('9', 12) && !inChallenge('9', 21)) ? "blank" : "prestige-button" },
         "resource-display",
         "blank",
         "upgrades"
@@ -1148,11 +1114,11 @@ addLayer("4", {
         }
     },
     passiveGeneration() {
-        if (hasMilestone("8", 0) && player[this.layer].autoGreen) return 10
+        if (hasMilestone("8", 0) && !inChallenge('9', 12) && !inChallenge('9', 21)) return 10
         return 0
     },
     autoUpgrade() {
-        return hasMilestone("8", 0) && player[this.layer].autoGreen;
+        return (hasMilestone("8", 0) && !inChallenge('9', 12) && !inChallenge('9', 21))
     },
     upgrades: {
         11: {
@@ -1451,7 +1417,6 @@ addLayer("6", {
     type: "normal",
     exponent: 0.04,
     row: 2,
-    canReset() { return false },
     nodeStyle() {
         if (hasChallenge("9", 23)) {
             return {
@@ -1522,7 +1487,7 @@ addLayer("6", {
         "upgrades"
     ],
     passiveGeneration() {
-        if (hasMilestone("8", 0) && player[this.layer].autoPink) return 0.0001
+        if (hasMilestone("8", 0) && !inChallenge('9', 12) && !inChallenge('9', 21)) return 0.0001
         return 0
     },
     layerShown() { return hasUpgrade("p", 33) }
@@ -1651,16 +1616,8 @@ addLayer("8", {
     milestones: {
         0: {
             requirementDescription: "1 fame",
-            effectDescription: "The first 6 paths gain automation.",
+            effectDescription: "The first 6 colors gain automation.",
             unlocked() {return !inChallenge('9', 21)},
-            toggles: [
-                ["1", "autoRed"],
-                ["2", "autoBlue"],
-                ["3", "autoGold"],
-                ["4", "autoGreen"],
-                ["5", "autoPurple"],
-                ["6", "autoPink"]
-            ],
             done() { 
                 return player[this.layer].points.gte(1) 
             }
@@ -1764,7 +1721,7 @@ addLayer("9", {
         },
         12: {
             name: "Painting 2",
-            challengeDescription: "Paint rapidly goes down, stopping at 1.",
+            challengeDescription: "Paint rapidly goes down, stopping at 1. You don't have automation.",
             goalDescription: "Get 10 blue.",
             rewardDescription: "log(blue) boosts paint.",
             unlocked() { return hasChallenge('9', 11) },
