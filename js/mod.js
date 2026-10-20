@@ -123,8 +123,12 @@ function isEndgame() {
 
 // Less important things beyond this point!
 
-// Style for the background, can be a function
 var backgroundStyle = function() {
+    if (typeof options !== "undefined" && options.motionSicknessDisabling) {
+        return {
+            "background": "#07080f"
+        }
+    }
     if (!document.getElementById("starry-rainbow-keyframes")) {
         let style = document.createElement("style")
         style.id = "starry-rainbow-keyframes"
